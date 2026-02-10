@@ -120,14 +120,7 @@ Great! Your password looks strong.
 
 ---
 
-## 🚧 Future Improvements
 
-* Add breached-password detection (API-based)
-* GUI version (Tkinter / PyQt)
-* Web version using Flask
-* Dictionary-based attack simulation
-
----
 
 ## 📜 Disclaimer
 
@@ -140,7 +133,6 @@ This tool does **not store, log, or transmit passwords**. All analysis is done l
 **Greeshmanth Nimmala**
 Cybersecurity Enthusiast | Python Developer
 
-🔗 GitHub: [https://github.com/your-username](https://github.com/your-username)
 
 ---
 
