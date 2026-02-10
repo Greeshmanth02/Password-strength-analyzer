@@ -1,96 +1,147 @@
-import re
-import math
-import getpass
+# 🔐 Password Strength Analyzer (Python)
 
-def calculate_entropy(password):
-    charset_size = 0
-    if re.search(r"[a-z]", password):
-        charset_size += 26
-    if re.search(r"[A-Z]", password):
-        charset_size += 26
-    if re.search(r"[0-9]", password):
-        charset_size += 10
-    if re.search(r"[^a-zA-Z0-9]", password):
-        charset_size += 32
+A **terminal-based Password Strength Analyzer written in Python** that evaluates password security using **character analysis, scoring logic, and entropy calculation**. The tool helps users understand how strong their passwords are and provides **actionable suggestions** to improve weak passwords.
 
-    if charset_size == 0:
-        return 0
+> ⚠️ This project is for **educational and security-awareness purposes only**.
 
-    entropy = len(password) * math.log2(charset_size)
-    return round(entropy, 2)
+---
 
-def analyze_password(password):
-    score = 0
-    feedback = []
+## 🚀 Features
 
-    # Length check
-    if len(password) >= 12:
-        score += 3
-    elif len(password) >= 8:
-        score += 2
-    else:
-        feedback.append("Password is too short (use at least 12 characters).")
+* Secure password input using `getpass` (input hidden)
+* Length-based scoring (8+ / 12+ characters)
+* Checks for:
 
-    # Character variety
-    if re.search(r"[a-z]", password):
-        score += 1
-    else:
-        feedback.append("Add lowercase letters.")
+  * Lowercase letters
+  * Uppercase letters
+  * Numbers
+  * Special characters
+* Detects **common weak patterns** (e.g., `123`, `password`, `qwerty`)
+* **Entropy calculation (in bits)** using character set size
+* Classifies password strength as:
 
-    if re.search(r"[A-Z]", password):
-        score += 1
-    else:
-        feedback.append("Add uppercase letters.")
+  * ❌ WEAK
+  * ⚠️ MEDIUM
+  * ✅ STRONG
+* Provides **clear improvement suggestions**
 
-    if re.search(r"[0-9]", password):
-        score += 1
-    else:
-        feedback.append("Add numbers.")
+---
 
-    if re.search(r"[^a-zA-Z0-9]", password):
-        score += 1
-    else:
-        feedback.append("Add special characters (!@#$%).")
+## 🧠 How It Works
 
-    # Common patterns
-    common_patterns = ["123", "password", "qwerty", "abc"]
-    for pattern in common_patterns:
-        if pattern.lower() in password.lower():
-            score -= 2
-            feedback.append("Avoid common patterns like '123' or 'password'.")
-            break
+### 1️⃣ Scoring Logic
 
-    entropy = calculate_entropy(password)
+The password earns points based on:
 
-    # Strength result
-    if score >= 7 and entropy >= 60:
-        strength = "STRONG"
-    elif score >= 5:
-        strength = "MEDIUM"
-    else:
-        strength = "WEAK"
+* Length (up to 3 points)
+* Character variety (lowercase, uppercase, digits, symbols)
+* Penalty for common patterns
 
-    return strength, entropy, feedback
+### 2️⃣ Entropy Calculation
 
-def main():
-    print("\n🔐 Password Strength Analyzer (Terminal Version)")
-    print("-" * 45)
+Entropy is calculated using the formula:
 
-    password = getpass.getpass("Enter password (input hidden): ")
+```
+Entropy = Password Length × log₂(Character Set Size)
+```
 
-    strength, entropy, feedback = analyze_password(password)
+Higher entropy means the password is harder to crack using brute-force attacks.
 
-    print("\nResults:")
-    print(f"Strength : {strength}")
-    print(f"Entropy  : {entropy} bits")
+---
 
-    if feedback:
-        print("\nSuggestions:")
-        for f in feedback:
-            print(f"- {f}")
-    else:
-        print("\nGreat! Your password looks strong.")
+## 🛠️ Tech Stack
 
-if __name__ == "__main__":
-    main()
+* **Language:** Python 🐍
+* **Standard Libraries Used:**
 
+  * `re` – pattern matching
+  * `math` – entropy calculation
+  * `getpass` – secure password input
+
+---
+
+## 📂 Project Structure
+
+```
+password-strength-analyzer/
+│
+├── password_analyzer.py   # Main analyzer script
+├── README.md              # Documentation
+```
+
+---
+
+## ▶️ How to Run
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/password-strength-analyzer.git
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd password-strength-analyzer
+```
+
+3. Run the program:
+
+```bash
+python password_analyzer.py
+```
+
+4. Enter your password securely (input will be hidden)
+
+---
+
+## 📸 Sample Output
+
+```
+🔐 Password Strength Analyzer (Terminal Version)
+---------------------------------------------
+Enter password (input hidden):
+
+Results:
+Strength : STRONG
+Entropy  : 72.4 bits
+
+Great! Your password looks strong.
+```
+
+---
+
+## 🎯 Learning Outcomes
+
+* Understanding **password entropy & strength metrics**
+* Using **regular expressions** for security validation
+* Implementing **secure input handling** in Python
+* Applying **cybersecurity best practices**
+
+---
+
+## 🚧 Future Improvements
+
+* Add breached-password detection (API-based)
+* GUI version (Tkinter / PyQt)
+* Web version using Flask
+* Dictionary-based attack simulation
+
+---
+
+## 📜 Disclaimer
+
+This tool does **not store, log, or transmit passwords**. All analysis is done locally.
+
+---
+
+## 👤 Author
+
+**Greeshmanth Nimmala**
+Cybersecurity Enthusiast | Python Developer
+
+🔗 GitHub: [https://github.com/your-username](https://github.com/your-username)
+
+---
+
+⭐ If you find this project useful, consider giving it a star!
