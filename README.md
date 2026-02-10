@@ -1,7 +1,3 @@
-python3 --version
-mkdir password_strength_analyzer
-cd password_strength_analyzer
-nano analyzer.py
 import re
 import math
 import getpass
@@ -97,8 +93,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-CTRL + X
-Y
-ENTER
-python3 analyzer.py
 
